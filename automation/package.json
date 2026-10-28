@@ -1,0 +1,17 @@
+{
+  "name": "rincon-studio-automation",
+  "private": true,
+  "type": "module",
+  "description": "Genera un Short con Rincón Studio en un Chrome sin pantalla y lo publica en YouTube.",
+  "scripts": {
+    "generate": "node generate-short.mjs",
+    "upload": "node upload-youtube.mjs",
+    "test": "node test/selftest.mjs"
+  },
+  "dependencies": {
+    "playwright": "1.49.1"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

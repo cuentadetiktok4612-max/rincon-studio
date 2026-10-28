@@ -1,0 +1,236 @@
+{
+  "version": 1,
+  "licensePolicy": "The six imported recordings were supplied by the user and their original licenses are not verified. Confirm reuse/attribution rights before publishing; use only owned or explicitly licensed recordings.",
+  "effects": [
+    {
+      "id": "whoosh",
+      "file": "whoosh.wav",
+      "duration": 0.45,
+      "tags": [
+        "transition",
+        "movement",
+        "hook"
+      ],
+      "volume": 0.28
+    },
+    {
+      "id": "impact",
+      "file": "impact.wav",
+      "duration": 0.3,
+      "tags": [
+        "reveal",
+        "emphasis",
+        "hit"
+      ],
+      "volume": 0.24
+    },
+    {
+      "id": "boom",
+      "file": "boom.wav",
+      "duration": 0.55,
+      "tags": [
+        "reveal",
+        "dramatic"
+      ],
+      "volume": 0.22
+    },
+    {
+      "id": "riser",
+      "file": "riser.wav",
+      "duration": 0.8,
+      "tags": [
+        "suspense",
+        "build"
+      ],
+      "volume": 0.2
+    },
+    {
+      "id": "suspense_riser",
+      "file": "suspense-riser.wav",
+      "duration": 1.2,
+      "tags": [
+        "mystery",
+        "suspense"
+      ],
+      "volume": 0.18
+    },
+    {
+      "id": "pop",
+      "file": "pop.wav",
+      "duration": 0.18,
+      "tags": [
+        "avatar",
+        "emphasis",
+        "light"
+      ],
+      "volume": 0.22
+    },
+    {
+      "id": "click",
+      "file": "click.wav",
+      "duration": 0.1,
+      "tags": [
+        "ui",
+        "microaccent"
+      ],
+      "volume": 0.16
+    },
+    {
+      "id": "ding",
+      "file": "ding.wav",
+      "duration": 0.45,
+      "tags": [
+        "fact",
+        "discovery",
+        "number"
+      ],
+      "volume": 0.2
+    },
+    {
+      "id": "sparkle",
+      "file": "sparkle.wav",
+      "duration": 0.6,
+      "tags": [
+        "wonder",
+        "discovery"
+      ],
+      "volume": 0.18
+    },
+    {
+      "id": "gasp",
+      "file": "gasp.wav",
+      "duration": 0.35,
+      "tags": [
+        "surprise",
+        "reaction"
+      ],
+      "volume": 0.16
+    },
+    {
+      "id": "heartbeat",
+      "file": "heartbeat.wav",
+      "duration": 0.65,
+      "tags": [
+        "tension",
+        "fear"
+      ],
+      "volume": 0.2
+    },
+    {
+      "id": "tick_tock",
+      "file": "tick-tock.wav",
+      "duration": 0.5,
+      "tags": [
+        "countdown",
+        "tension"
+      ],
+      "volume": 0.15
+    },
+    {
+      "id": "record_scratch",
+      "file": "record-scratch.wav",
+      "duration": 0.55,
+      "tags": [
+        "comedy",
+        "unexpected"
+      ],
+      "volume": 0.2
+    },
+    {
+      "id": "sad_trombone",
+      "file": "sad-trombone.wav",
+      "duration": 1.1,
+      "tags": [
+        "comedy",
+        "failure"
+      ],
+      "volume": 0.18
+    },
+    {
+      "id": "applause",
+      "file": "applause.wav",
+      "duration": 0.9,
+      "tags": [
+        "success",
+        "celebration"
+      ],
+      "volume": 0.18
+    },
+    {
+      "id": "notification",
+      "file": "notification.wav",
+      "duration": 0.25,
+      "tags": [
+        "message",
+        "fact"
+      ],
+      "volume": 0.16
+    },
+    {
+      "id": "real_whoosh",
+      "file": "real-whoosh.wav",
+      "duration": 0.48,
+      "tags": [
+        "transition",
+        "swipe",
+        "movement"
+      ],
+      "volume": 0.36
+    },
+    {
+      "id": "real_swish",
+      "file": "real-swish.wav",
+      "duration": 1.8,
+      "tags": [
+        "transition",
+        "grainy-swish",
+        "movement"
+      ],
+      "volume": 0.34
+    },
+    {
+      "id": "real_zoom_transition",
+      "file": "real-zoom-transition.wav",
+      "duration": 1.12,
+      "tags": [
+        "zoom",
+        "reveal",
+        "transition"
+      ],
+      "volume": 0.36
+    },
+    {
+      "id": "funny_slide",
+      "file": "funny-slide.wav",
+      "duration": 0.46,
+      "tags": [
+        "comedy",
+        "slide",
+        "light"
+      ],
+      "volume": 0.3
+    },
+    {
+      "id": "real_mouse_click",
+      "file": "real-mouse-click.wav",
+      "duration": 0.24,
+      "tags": [
+        "ui",
+        "mouse",
+        "cta"
+      ],
+      "volume": 0.28
+    },
+    {
+      "id": "sword_swish",
+      "file": "sword-swish.wav",
+      "duration": 0.24,
+      "tags": [
+        "action",
+        "sword",
+        "whoosh"
+      ],
+      "volume": 0.35
+    }
+  ]
+}

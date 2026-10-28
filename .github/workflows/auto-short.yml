@@ -1,0 +1,90 @@
+name: Short automático
+
+on:
+  schedule:
+    # Cada 8 horas en UTC: 00:00, 08:00 y 16:00 (Venezuela, UTC-4: 20:00, 04:00 y 12:00).
+    # Para cambiar las horas, edita la lista: por ejemplo '0 4,12,20 * * *' = 00:00, 08:00 y 16:00 en Venezuela.
+    - cron: '0 */8 * * *'
+  workflow_dispatch:
+    inputs:
+      privacy:
+        description: 'Privacidad de este vídeo (default = la variable YT_PRIVACY, o private)'
+        type: choice
+        options: [default, private, unlisted, public]
+        default: default
+      dry_run:
+        description: 'Prueba: genera el vídeo pero NO lo sube a YouTube'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: auto-short
+  cancel-in-progress: false
+
+jobs:
+  short:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    env:
+      YT_PRIVACY: ${{ (inputs.privacy && inputs.privacy != 'default') && inputs.privacy || vars.YT_PRIVACY || 'private' }}
+      YT_DRY_RUN: ${{ inputs.dry_run && '1' || '0' }}
+      YT_CATEGORY_ID: ${{ vars.YT_CATEGORY_ID || '27' }}
+      YT_SYNTHETIC: ${{ vars.YT_SYNTHETIC || 'true' }}
+      YT_DISCLOSURE: ${{ vars.YT_DISCLOSURE || '' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Instalar dependencias y Chrome
+        working-directory: automation
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install --with-deps chrome
+
+      - name: Pruebas rápidas (sin red)
+        working-directory: automation
+        run: npm test
+
+      - name: Generar el Short
+        working-directory: automation
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+          PIXABAY_API_KEY: ${{ secrets.PIXABAY_API_KEY }}
+        run: node generate-short.mjs
+
+      - name: Subir a YouTube
+        working-directory: automation
+        env:
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+        run: node upload-youtube.mjs
+
+      - name: Guardar memoria de temas (evita repetir ideas)
+        if: success() && env.YT_DRY_RUN != '1'
+        run: |
+          git config user.name "rincon-bot"
+          git config user.email "rincon-bot@users.noreply.github.com"
+          git add automation/state
+          if ! git diff --cached --quiet; then
+            git commit -m "Short publicado: actualiza memoria de temas"
+            git pull --rebase --autostash
+            git push
+          fi
+
+      - name: Guardar vídeo y registro (3 días) para revisarlos
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: short-${{ github.run_number }}
+          path: out/
+          retention-days: 3
+          if-no-files-found: ignore

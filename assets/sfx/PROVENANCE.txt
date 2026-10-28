@@ -1,0 +1,11 @@
+Audio assets added from the user-provided archive “Trancisiones Necesarias.zip”.
+
+Curated clips:
+- real-whoosh.wav — trimmed from “Whoosh Sound Effect HD _ No Copyright(MP3_70K).mp3”
+- real-swish.wav — trimmed from “24 - Swish grainy.wav”
+- real-zoom-transition.wav — trimmed from “EFECTO DE SONIDO.-TRANSICIÓN_GIRO LENTO_ZOOM _ENTRADA EXPLOSIVA-No Copyright Music(MP3_128K).mp3”
+- funny-slide.wav — trimmed from “Deslizar - efecto de sonido gracioso(MP3_128K).mp3”
+- real-mouse-click.wav — trimmed from “Sonido del Click del Mouse __ Mouse Click - Sound Effect(MP3_70K).mp3”
+- sword-swish.wav — trimmed from “agitando espada - efecto de sonido(MP3_160K).mp3”
+
+Clips were cropped, converted to mono 44.1 kHz WAV, and level-controlled for integration. Their original license/creator metadata was not included in the archive and has not been independently verified. Before publishing monetized videos, confirm the terms and attribution requirements for each original recording. The filenames containing “No Copyright” are not, by themselves, proof of a license.
