@@ -3,6 +3,17 @@
 Editor web estático para crear Shorts verticales con narración IA, imágenes, subtítulos sincronizados, avatar expresivo y exportación desde Canvas.
 
 
+## v28 — Narración con personalidad y Gemini 3.8 Flash TTS
+
+- La voz principal ahora usa `gemini-3.8-flash-tts`, con `gemini-3.8-flash-lite-tts` y Gemini 2.5 TTS como alternativas automáticas si el modelo principal no está disponible.
+- Se eligió una voz preconfigurada de timbre más grave (`Algenib`) para 3.8, con dirección de interpretación: español latino, base mexicana con giros colombianos naturales, sarcasmo amable, asombro, suspenso y pausas de remate.
+- Los guiones piden humor conversacional y expresiones regionales moderadas (por ejemplo «wey», «parce», «no manches» y «pinche»), sin forzarlas ni sacrificar los hechos. En temas sensibles se desactiva el humor.
+- Las indicaciones de risa/pausa se añaden únicamente a la solicitud de audio; el texto visible, los subtítulos y la línea de tiempo conservan la narración limpia.
+- Los acentos de sonido automáticos reconocen también expresiones regionales y chistes, sin disparar efectos en cadena.
+- La API key de Gemini existente sirve también para TTS; no se añadió una nueva clave ni se cambió el flujo de publicación.
+
+**Importante:** Gemini 3.8 Flash TTS es el modelo solicitado y está integrado como primera opción, pero la disponibilidad, cuotas y precio dependen del proyecto/cuenta de Google. El fallback puede usar otro modelo si 3.8 devuelve un error de disponibilidad o cuota. No se puede certificar la calidad final de audio sin generar una muestra con tu propia clave.
+
 ## v27 — Publicación automática en YouTube
 
 - Nuevo flujo sin supervisión: GitHub Actions ejecuta la app en un Chrome sin pantalla cada 8 horas, genera un Short, lo verifica con ffmpeg y lo sube a tu canal por la API de YouTube. La app no cambia.

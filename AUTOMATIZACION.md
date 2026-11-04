@@ -8,7 +8,7 @@ cron (cada 8 h) → Chrome sin pantalla ejecuta la app → vídeo 1080×1920 →
 → MP4 H.264/AAC → YouTube Data API → memoria de temas guardada en el repo (no repite ideas)
 ```
 
-La app (`app.js`, `index.html`…) **no se ha modificado**. Todo lo nuevo está en `automation/` y `.github/workflows/auto-short.yml`.
+La app (`app.js`) contiene las mejoras creativas y TTS de v28. El flujo de automatización y subida sigue en `automation/` y `.github/workflows/auto-short.yml`; se conservaron sus identificadores y horario.
 
 ## ⚠️ Antes de empezar: el límite de YouTube
 
@@ -51,7 +51,7 @@ GitHub → Settings → Secrets and variables → Actions → **Secrets**:
 
 | Secret | ¿Obligatorio? | Para qué |
 |---|---|---|
-| `GEMINI_API_KEY` | Sí | tema, guion, voz |
+| `GEMINI_API_KEY` | Sí | investigación, guion y voz Gemini 3.8 Flash TTS (con alternativas automáticas) |
 | `YT_CLIENT_ID`, `YT_CLIENT_SECRET`, `YT_REFRESH_TOKEN` | Sí | subir a tu canal |
 | `GROQ_API_KEY` | No | pulido del guion |
 | `PEXELS_API_KEY`, `PIXABAY_API_KEY` | No | más fuentes de imágenes |
@@ -60,7 +60,7 @@ GitHub → Settings → Secrets and variables → Actions → **Secrets**:
 - `YT_PRIVACY`: `private` (por defecto), `unlisted` o `public`.
 - `YT_CATEGORY_ID` (27 = Educación), `YT_SYNTHETIC` (`true` por defecto; marca «contenido sintético», `false` o `omit`), `YT_DISCLOSURE` (línea extra para la descripción).
 
-## Puesta en marcha recomendada
+## Voz y estilo editorial (v28)\n\nLa aplicación usa `gemini-3.8-flash-tts` como primera opción de voz y `gemini-3.8-flash-lite-tts` / Gemini 2.5 TTS como respaldo. Se conserva la misma `GEMINI_API_KEY`; no hace falta configurar otra credencial. La voz se dirige como narrador latino carismático, con base mexicana y expresiones colombianas puntuales. El guion puede incluir humor y groserías coloquiales moderadas, pero evita bromas en temas sensibles. La voz generada se mantiene en una sola pista continua para conservar timbre y sincronización.\n\nLa API puede aplicar cuotas, restricciones regionales o cobros según el proyecto de Google; revisa AI Studio/Google AI antes de activar producción continua. La primera ejecución debe hacerse en `dry_run` y escucharse completa.\n\n## Puesta en marcha recomendada
 1. **Actions → Short automático → Run workflow** con *Prueba* activada: genera el vídeo y NO sube nada. Descarga el artefacto `short-N` (vídeo, `youtube-request.json`, `activity.json`) y reprodúcelo.
 2. Ejecuta de nuevo sin «Prueba». Con `YT_PRIVACY=private` revisa 2–3 vídeos en Studio.
 3. Cuando confíes en la calidad (y el proyecto esté auditado), pon `YT_PRIVACY=public`.

@@ -16,6 +16,17 @@ const tmp = await fs.mkdtemp(path.join(os.tmpdir(), 'rincon-test-'));
 let n = 0;
 const ok = (m) => console.log(`✓ ${++n}. ${m}`);
 
+// 0. Configuración creativa/TTS (sin red)
+{
+  const app = await fs.readFile(path.join(ROOT, 'app.js'), 'utf8');
+  assert.ok(app.includes("'gemini-3.8-flash-tts'"), 'Gemini 3.8 Flash TTS debe ser el modelo principal');
+  assert.ok(app.includes("'gemini-3.8-flash-lite-tts'"), 'Gemini 3.8 Flash-Lite debe estar disponible como respaldo');
+  assert.ok(app.includes("voiceName:(model.startsWith('gemini-3.8')?'Algenib':'Charon')"), 'voz configurada según modelo');
+  assert.ok(app.includes('español latino') && app.includes('parce') && app.includes('wey'), 'dirección editorial regional y humor presente');
+  assert.ok(app.includes('<laughs>'), 'marcador de risa expresiva presente');
+  ok('Gemini 3.8 Flash TTS, voz dirigida, humor regional y marcadores expresivos configurados');
+}
+
 // 1. Servidor estático
 {
   const s = await startStaticServer(ROOT);
