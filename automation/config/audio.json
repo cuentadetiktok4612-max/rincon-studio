@@ -1,0 +1,12 @@
+{
+  "enabled": true,
+  "file": "assets/music/lessons-in-sunlight.mp3",
+  "musicBelowVoiceLU": 14,
+  "duckThreshold": 0.05,
+  "duckRatio": 3,
+  "fadeInSec": 0.8,
+  "fadeOutSec": 1.8,
+  "randomStart": true,
+  "targetLufs": -14,
+  "truePeakLimit": 0.84
+}

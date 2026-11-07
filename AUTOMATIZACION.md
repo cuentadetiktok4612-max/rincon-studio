@@ -97,6 +97,13 @@ Google Cloud → Credenciales → Crear credenciales → **Clave de API** (restr
 - Un canal que salta entre 10 nichos puede costarle más que uno enfocado. Si ves que uno funciona, sube su peso o baja el de los demás en `channel.json`.
 - Los suscriptores ganados por vídeo requieren permisos de YouTube Analytics que este sistema no pide; el aprendizaje usa vistas.
 
+## v30 — Música de fondo, hashtags en el título y guion más corto
+
+- **Música de fondo** (`assets/music/lessons-in-sunlight.mp3`, ajustes en `automation/config/audio.json`): se mezcla con ffmpeg al final de cada Short, nunca antes de publicar. Mide la sonoridad de la voz y baja la pista 14 LU por debajo; además la agacha mientras hay voz (sidechain) y lleva el resultado a −14 LUFS, la referencia de YouTube, con límite de pico. La parte de la pista es aleatoria en cada vídeo. Para más o menos música cambia `musicBelowVoiceLU` (más alto = más suave); `"enabled": false` desactiva la música y deja solo la normalización. Si la mezcla falla, se publica el vídeo sin música.
+- **Título con hashtags**: el título lleva hasta 2 hashtags del tema y `#Shorts`, y nunca supera los 100 caracteres (si el título es largo, no se recorta: solo se añaden los que caben). La descripción conserva todos los hashtags.
+- **Guion de 100–120 palabras** (unos 40 s) en vez de 130–160: los vídeos largos pierden espectadores antes del final. Para volver al largo, cambia esa frase en el prompt de `app.js`.
+- Licencia de la pista: confírmala antes de publicar; si exige atribución, añádela a la descripción. El repo es público, así que el archivo también es descargable por cualquiera.
+
 ## Qué no está verificado
 Las piezas se probaron aisladas (`npm test`: servidor, control de vídeo, metadatos y subida reanudable contra un YouTube simulado,
 y el script del token). **No se ha probado una ejecución completa** con Chrome real, tus claves y YouTube. La primera

@@ -145,7 +145,7 @@ if (await hasFfmpeg()) {
   assert.equal(result.id, 'VID42');
   assert.ok(injected, 'se inyectó el 503');
   assert.ok(Buffer.concat(received).equals(data), 'el contenido llegó íntegro y en orden');
-  assert.equal(sessionBody.snippet.title, 'Prueba');
+  assert.equal(sessionBody.snippet.title, body.snippet.title); // el cuerpo llega tal cual (ya incluye hashtags)
   assert.equal(sessionBody.status.privacyStatus, 'private');
   srv.close();
   ok(`subida reanudable: sobrevive a un 503 y entrega los ${data.length} bytes intactos (${((Date.now() - t0) / 1000).toFixed(1)} s)`);

@@ -43,6 +43,18 @@ function fitBytes(text, max) {
   return out.trimEnd();
 }
 
+// Añade hashtags al título sin pasar de 100 caracteres (YouTube muestra los del título sobre el vídeo).
+// Orden: los 2 primeros del tema y #Shorts, solo si caben enteros.
+export function composeTitle(title, tags, max = 100) {
+  let out = title;
+  const wanted = [...tags.filter((t) => t.toLowerCase() !== 'shorts').slice(0, 2), 'Shorts'];
+  for (const t of wanted) {
+    const add = ' #' + t;
+    if ((out + add).length <= max) out += add;
+  }
+  return out;
+}
+
 export function buildMetadata(meta, opts = {}) {
   const privacy = ['private', 'unlisted', 'public'].includes(opts.privacy) ? opts.privacy : 'private';
   const d = meta.description || {};
@@ -54,6 +66,8 @@ export function buildMetadata(meta, opts = {}) {
     .flatMap((h) => String(h).split(/\s+/))
     .map((h) => h.replace(/^#+/, '').replace(/[^\p{L}\p{N}_]/gu, ''))
     .filter(Boolean))].slice(0, 12);
+
+  title = composeTitle(title, tags);
 
   const hashLine = [...tags.map((t) => '#' + t), ...(tags.some((t) => t.toLowerCase() === 'shorts') ? [] : ['#Shorts'])].join(' ');
   const footer = '\n\n' + [opts.disclosure ? strip(opts.disclosure) : '', hashLine].filter(Boolean).join('\n');

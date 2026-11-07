@@ -6,7 +6,7 @@
   "scripts": {
     "generate": "node generate-short.mjs",
     "upload": "node upload-youtube.mjs",
-    "test": "node test/selftest.mjs && node test/selftest-v29.mjs",
+    "test": "node test/selftest.mjs && node test/selftest-v29.mjs && node test/selftest-v30.mjs",
     "pick": "node pick-topic.mjs"
   },
   "dependencies": {

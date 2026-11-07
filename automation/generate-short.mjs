@@ -6,6 +6,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { startStaticServer } from './lib/static-server.mjs';
 import { hasFfmpeg, checkVideo, normalizeForYouTube } from './lib/video.mjs';
+import { mixBackgroundMusic } from './lib/audiomix.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(HERE, '..');
@@ -130,6 +131,11 @@ async function main() {
       log('Vídeo:', JSON.stringify({ ...q.info, volume: q.volume }));
       if (q.problems.length) throw new Error('El vídeo no pasó el control de calidad:\n- ' + q.problems.join('\n- '));
       finalFile = await normalizeForYouTube(rawFile, OUT, q.info);
+      try {
+        finalFile = await mixBackgroundMusic({ input: finalFile, outDir: OUT, root: ROOT, log });
+      } catch (e) {
+        log('AVISO: no se pudo añadir la música; se publica sin ella:', e.message);
+      }
     } else {
       log('AVISO: no hay ffmpeg/ffprobe; se omite el control de calidad del vídeo.');
     }
