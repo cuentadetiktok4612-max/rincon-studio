@@ -60,9 +60,11 @@ export function buildMetadata(meta, opts = {}) {
   const body = strip(d.text || meta.topic || '').trim();
   const description = fitBytes(body, 4900 - Buffer.byteLength(footer)) + footer;
 
+  const extra = (Array.isArray(meta.plan?.keywords) ? meta.plan.keywords : []).map((k) => strip(k).replace(/[,]/g, ' ').replace(/\s+/g, ' ').trim()).filter(Boolean);
+  const allTags = [...new Map([...tags, ...extra].map((t) => [t.toLowerCase(), t])).values()];
   const keyTags = [];
   let used = 0;
-  for (const t of tags) {
+  for (const t of allTags) {
     if (used + t.length + 3 > 450) break;
     keyTags.push(t);
     used += t.length + 3;

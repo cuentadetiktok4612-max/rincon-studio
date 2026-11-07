@@ -53,7 +53,7 @@ async function main() {
 
   // Memoria persistente (se confirma con commit en el workflow).
   const published = await readJson(path.join(STATE, 'published.json'), []);
-  published.unshift({ id: result.id, topic: meta.topic, title: body.snippet.title, requestedPrivacy: privacy, at: new Date().toISOString() });
+  published.unshift({ id: result.id, topic: meta.topic, title: body.snippet.title, categoryId: meta.plan?.categoryId || null, requestedPrivacy: privacy, at: new Date().toISOString() });
   await fs.writeFile(path.join(STATE, 'published.json'), JSON.stringify(published.slice(0, 200), null, 2) + '\n');
   for (const [from, to] of [['topic-memory.json', 'topics.json'], ['mascot.json', 'mascot.json']]) {
     try { await fs.copyFile(path.join(OUT, from), path.join(STATE, to)); } catch { /* no existe */ }

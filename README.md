@@ -3,6 +3,11 @@
 Editor web estático para crear Shorts verticales con narración IA, imágenes, subtítulos sincronizados, avatar expresivo y exportación desde Canvas.
 
 
+## v29 — Tendencias y más nichos
+
+- 10 categorías (nuevas: superhéroes, ¿y si…?, espacio, animales, tecnología, récords y cultura pop) y botones para elegirlas.
+- La automatización analiza tendencias (Wikipedia, Google Trends, YouTube con clave opcional), elige nicho y tema con puntuación verificable y aprende de las vistas de tus vídeos públicos. Detalle en `AUTOMATIZACION.md`.
+
 ## v28 — Narración con personalidad y Gemini 3.8 Flash TTS
 
 - La voz principal ahora usa `gemini-3.8-flash-tts`, con `gemini-3.8-flash-lite-tts` y Gemini 2.5 TTS como alternativas automáticas si el modelo principal no está disponible.

@@ -1,0 +1,29 @@
+{
+  "channelName": "El Rincón de lo Desconocido",
+  "regions": ["MX", "CO", "AR", "ES", "US"],
+  "explorationRate": 0.2,
+  "recentWindow": 5,
+  "trendSearch": { "enabled": true, "maxQueries": 3 },
+  "niches": {
+    "superheroes": { "weight": 1.3, "seeds": ["ciencia de los superhéroes", "superpoderes reales", "podría existir un superhéroe"] },
+    "whatif":      { "weight": 1.2, "seeds": ["qué pasaría si", "y si la tierra", "escenarios imposibles ciencia"] },
+    "space":       { "weight": 1.1, "seeds": ["espacio curiosidades", "agujeros negros", "planetas increíbles"] },
+    "animals":     { "weight": 1.1, "seeds": ["animales extremos", "animales más inteligentes", "habilidades de animales"] },
+    "technology":  { "weight": 1.0, "seeds": ["cómo funciona la inteligencia artificial", "inventos increíbles", "robots"] },
+    "records":     { "weight": 1.1, "seeds": ["top 5 récords mundiales", "lo más grande del mundo", "lugares más profundos"] },
+    "culture":     { "weight": 1.0, "seeds": ["historia real detrás de videojuegos", "ciencia real en películas", "curiosidades de anime"] },
+    "curiosities": { "weight": 1.0, "seeds": ["curiosidades sorprendentes", "datos que no sabías", "por qué ocurre"] },
+    "mysteries":   { "weight": 0.9, "seeds": ["misterios históricos", "secretos de la historia", "lugares misteriosos reales"] },
+    "differences": { "weight": 0.8, "seeds": ["diferencias que no sabías", "cuál es la diferencia entre", "se parecen pero no son iguales"] }
+  },
+  "avoid": [
+    "política, candidatos y partidos",
+    "consejos médicos, dietas o tratamientos",
+    "tragedias recientes, muertes y crímenes reales",
+    "personas reales vivas envueltas en polémicas",
+    "contenido sexual o dirigido a menores",
+    "religión presentada como hecho",
+    "teorías de conspiración y pseudociencia",
+    "apuestas, criptomonedas o consejos de inversión"
+  ]
+}

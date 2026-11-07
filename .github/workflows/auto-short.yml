@@ -51,6 +51,13 @@ jobs:
         working-directory: automation
         run: npm test
 
+      - name: Analizar tendencias y elegir nicho/tema
+        working-directory: automation
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          YT_API_KEY: ${{ secrets.YT_API_KEY }}
+        run: node pick-topic.mjs
+
       - name: Generar el Short
         working-directory: automation
         env:

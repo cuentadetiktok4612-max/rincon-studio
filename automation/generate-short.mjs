@@ -21,6 +21,7 @@ const K = {
   pixabay: 'focoshorts_image_pixabay',
   topics: 'focoshorts_topic_memory_v2',
   mascot: 'focoshorts_mascot_profile_v1',
+  plan: 'focoshorts_topic_plan_v1',
 };
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -29,8 +30,12 @@ const readJson = async (f, fallback) => { try { return JSON.parse(await fs.readF
 
 async function main() {
   if (!process.env.GEMINI_API_KEY) throw new Error('Falta el secret GEMINI_API_KEY: la app lo necesita para investigar el tema, escribir el guion y generar la voz.');
+  const planFile = path.join(OUT, 'topic-plan.json');
+  const planDoc = await readJson(planFile, null); // lo deja pick-topic.mjs antes de limpiar la carpeta
   await fs.rm(OUT, { recursive: true, force: true });
   await fs.mkdir(OUT, { recursive: true });
+  if (planDoc) await fs.writeFile(planFile, JSON.stringify(planDoc, null, 2));
+  const plan = planDoc?.plan || null;
 
   const topics = await readJson(path.join(STATE, 'topics.json'), []);
   const mascot = await readJson(path.join(STATE, 'mascot.json'), null);
@@ -41,6 +46,7 @@ async function main() {
     [K.pixabay, process.env.PIXABAY_API_KEY, true],
     [K.topics, Array.isArray(topics) ? JSON.stringify(topics) : null, true],
     [K.mascot, mascot && typeof mascot === 'object' ? JSON.stringify(mascot) : null, true],
+    [K.plan, plan ? JSON.stringify({ categoryId: plan.categoryId, topic: plan.topic, angle: plan.angle, format: plan.format, hook: plan.hook, why: plan.why }) : null, true],
   ].filter(([, v]) => v);
 
   const { port, close } = await startStaticServer(ROOT);
@@ -133,6 +139,7 @@ async function main() {
       durationSec: project.durationSec,
       description: project.description,
       hook: project.hook?.text || '',
+      plan: plan ? { categoryId: plan.categoryId, topic: plan.topic || '', format: plan.format || '', keywords: plan.keywords || [], mode: plan.mode } : null,
       facts: (project.facts || []).map((f) => ({ claim: f.claim, sourceName: f.sourceName, sourceUrl: f.sourceUrl })),
       videoFile: path.basename(finalFile),
       generatedAt: new Date().toISOString(),

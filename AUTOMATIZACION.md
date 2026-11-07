@@ -70,6 +70,33 @@ GitHub → Settings → Secrets and variables → Actions → **Secrets**:
 - La memoria de temas (`automation/state/`) solo se guarda si la subida salió bien, así un fallo no «quema» un tema.
 - Subida interrumpida (red/5xx) → se reanuda desde el último byte recibido.
 
+## v29 — Análisis de tendencias y elección de nicho
+
+Antes de generar cada Short, `automation/pick-topic.mjs` decide **qué** vídeo hacer:
+
+1. **Señales de tendencia** (cada fuente falla por separado sin romper nada): lo más leído ayer en Wikipedia ES/EN, Google Trends (RSS, sin garantía de que responda desde GitHub) y, si añades `YT_API_KEY`, los vídeos más populares de YouTube y los **Shorts de la última semana con más vistas** en los nichos mejor posicionados.
+2. **Prioridad de nichos** = peso en `automation/config/channel.json` × rendimiento de tus propios vídeos × penalización por repetir nicho en los últimos 5. El rendimiento solo se calcula con vídeos **públicos** de más de un día (la clave de API no ve los privados) y se limita a ×0.6–×1.8.
+3. **Candidatos**: Gemini propone 6 ideas y las puntúa (tendencia, retención, facilidad de ilustrar con fotos reales, vigencia, seguridad). Debe citar ids de señales reales; si no cita ninguna, su nota de tendencia se limita a 3. **La decisión final la calcula el código**: descarta categorías inventadas, temas poco seguros o repetidos y los que no se pueden ilustrar con fotos con licencia.
+4. **Exploración**: el 20 % de las veces ignora la prioridad de nichos para probar otros.
+5. Si algo falla (sin clave, Gemini saturado), elige un nicho por prioridad y la app propone el tema. Nunca detiene la publicación.
+
+El plan elegido y los 6 candidatos con sus notas quedan en `out/topic-plan.json` (dentro del artefacto de cada ejecución) y en el resumen del job.
+
+### Categorías (10)
+Las 3 de siempre más **Ciencia de los superhéroes**, **¿Y si…?**, **Espacio**, **Animales extremos**, **Tecnología**, **Récords y rankings** y **Cultura pop: la parte real**. También aparecen como botones en la app. Las de superhéroes y cultura pop prohíben pedir imágenes con derechos de autor: el vídeo trata de ciencia e historia reales y se ilustra con fotografías reales.
+
+### Qué puedes ajustar sin tocar código
+`automation/config/channel.json`: pesos por nicho (sube uno para publicar más de ese tema), palabras semilla para buscar Shorts, regiones, tasa de exploración y la lista de temas a evitar.
+
+### Clave opcional `YT_API_KEY`
+Google Cloud → Credenciales → Crear credenciales → **Clave de API** (restríngela a YouTube Data API v3) y guárdala como secret `YT_API_KEY`. Sin ella el análisis usa solo Wikipedia y Google Trends, y no puede aprender de tus resultados. Consume unos 400 unidades de cuota por ejecución (la subida gasta bastante más).
+
+### Límites honestos
+- Ningún análisis garantiza vistas ni suscriptores. Lo que más pesa en un canal nuevo (identidad clara, gancho de los primeros segundos, constancia) lo puede mejorar el sistema, pero no asegurarlo.
+- Las notas de tendencia las pone el modelo; el código solo comprueba que cite señales reales. Revisa `topic-plan.json` las primeras veces.
+- Un canal que salta entre 10 nichos puede costarle más que uno enfocado. Si ves que uno funciona, sube su peso o baja el de los demás en `channel.json`.
+- Los suscriptores ganados por vídeo requieren permisos de YouTube Analytics que este sistema no pide; el aprendizaje usa vistas.
+
 ## Qué no está verificado
 Las piezas se probaron aisladas (`npm test`: servidor, control de vídeo, metadatos y subida reanudable contra un YouTube simulado,
 y el script del token). **No se ha probado una ejecución completa** con Chrome real, tus claves y YouTube. La primera
